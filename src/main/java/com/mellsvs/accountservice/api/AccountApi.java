@@ -15,7 +15,7 @@ import java.awt.print.Pageable;
 @RequiredArgsConstructor
 
 public class AccountApi {
-
+    @Autowired
     //thats best practice.Recommended dont use autowired
     private final AccountService accountService;
 
