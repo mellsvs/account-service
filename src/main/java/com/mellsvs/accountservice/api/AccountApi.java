@@ -2,6 +2,7 @@ package com.mellsvs.accountservice.api;
 
 import com.mellsvs.accountservice.entity.Account;
 import com.mellsvs.accountservice.services.AccountService;
+import lombok.RequiredArgsConstructor;
 import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -11,14 +12,12 @@ import org.springframework.web.bind.annotation.*;
 import java.awt.print.Pageable;
 @RestController
 @RequestMapping("account")
+@RequiredArgsConstructor
+
 public class AccountApi {
 
     //thats best practice.Recommended dont use autowired
     private final AccountService accountService;
-
-    public AccountApi(AccountService accountService) {
-        this.accountService = accountService;
-    }
 
     @GetMapping("{id}")
     public ResponseEntity <Account> get(@PathVariable String id){
@@ -29,8 +28,8 @@ public class AccountApi {
         return  ResponseEntity.ok(accountService.save(account));
     }
     @PutMapping
-    public ResponseEntity <Account> update(Account account){
-        return  ResponseEntity.ok(accountService.update(account));
+    public ResponseEntity <Account> update(@PathVariable("id") String id,@RequestBody Account account){
+        return  ResponseEntity.ok(accountService.update(id,account));
     }
     @DeleteMapping
     public void delete(String id){
